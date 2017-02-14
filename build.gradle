@@ -1,0 +1,24 @@
+apply plugin : 'java'
+apply plugin : 'idea'
+// apply plugin : 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	// mavenCentral()
+
+    maven{
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+}
+
+dependencies {
+    compile(
+            "redis.clients:jedis:2.9.0"
+    )
+
+    testCompile(
+            "org.testng:testng:6.10"
+    )
+}

@@ -1,0 +1,28 @@
+# git ignore
+.git
+
+# maven ignore
+target/
+.DS_Store
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+.tern-project
+
+# intellij idea ignore
+.idea/
+*.iml
+*.ipr
+*.iws
+
+.gradle
+out/
+build/
+classes/
+nohup.out
+
+# other
+targetProject/
+tool/
