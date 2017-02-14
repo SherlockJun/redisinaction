@@ -7,6 +7,7 @@ import redis.clients.jedis.Jedis;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class C01DemoTest {
 
     @Test
     public void testPost(){
-        c01Demo.post(jedis, "007", "Redis In Action", "http://www.redisinaction.com");
+        c01Demo.post(jedis, "009", "Redis In Action 2ed", "http://www.redisinaction2ed.com");
     }
 
     @Test
@@ -38,12 +39,25 @@ public class C01DemoTest {
 
     @Test
     public void testVote(){
-        c01Demo.vote(jedis, "008", "article:1");
+        c01Demo.vote(jedis, "010", "article:2");
     }
 
     @Test
     public void testModifyGroup(){
-        c01Demo.modifyGroups(jedis, "article:1", Arrays.asList(new String[]{"group3", "group4"}),
+        c01Demo.modifyGroups(jedis, "1", Arrays.asList(new String[]{"group3", "group2"}),
                 Arrays.asList(new String[]{"group1"}));
+    }
+
+    @Test
+    public void testGetByGroup(){
+        c01Demo.getByGroup(jedis, "group3", 1, null);
+    }
+
+    @Test
+    public void test(){
+        Set<String> keys = jedis.keys("*");
+        for(String key : keys){
+            System.out.println(key);
+        }
     }
 }
