@@ -1,6 +1,7 @@
 package redisinaction.c01;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.ZParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,7 @@ public class C01Demo {
     }
 
     /**
-     *
+     * 修改文章分组
      * @param jedis
      * @param articleId
      * @param toAddGroupList
@@ -100,5 +101,26 @@ public class C01Demo {
         for (String group : toRemoveGroupList){
             jedis.srem("group:" + group, article);
         }
+    }
+
+    /**
+     *
+     * @param jedis
+     * @param group
+     * @param page
+     * @param order
+     * @return
+     */
+    public List<Map<String,String>> getByGroup(Jedis jedis, String group, int page, String order){
+        if(order == null || order.trim().isEmpty()){
+            order = "score:";
+        }
+
+        String key = order + group;
+        if(!jedis.exists(key)){
+            jedis.zinterstore(key, new ZParams().aggregate(ZParams.Aggregate.MAX), "group:" + group, order );
+            jedis.expire(key, 60);
+        }
+        return this.get(jedis, page, key);
     }
 }
