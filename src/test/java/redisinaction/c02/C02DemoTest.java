@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import redisinaction.common.BaseTest;
+import redisinaction.common.MD5Util;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Random;
 import java.util.UUID;
 
@@ -42,5 +45,26 @@ public class C02DemoTest extends BaseTest{
     @Test
     public void testCleanSession(){
         c02Demo.cleanSessions(jedis);
+    }
+
+    @Test
+    public void testAddCart(){
+        c02Demo.addCart(jedis, "session_1", "item_1", 10);
+        logger.info(jedis.hget("cart:session_1", "item_1"));
+        c02Demo.addCart(jedis, "session_1", "item_1", 5);
+        logger.info(jedis.hget("cart:session_1", "item_1"));
+        c02Demo.addCart(jedis, "session_1", "item_1", 0);
+        logger.info(jedis.hget("cart:session_1", "item_1"));
+    }
+
+    @Test
+    public void testCleanFullSessions(){
+        c02Demo.cleanFullSessions(jedis);
+    }
+
+    @Test
+    public void testCacheRequest(){
+        logger.info(MD5Util.encode("23424234"));
+        c02Demo.cacheRequest(jedis, "w234232342234");
     }
 }
