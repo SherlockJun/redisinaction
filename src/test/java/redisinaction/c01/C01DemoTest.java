@@ -1,34 +1,21 @@
 package redisinaction.c01;
 
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import redis.clients.jedis.Jedis;
+import redisinaction.common.BaseTest;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 /**
  * Created by tanjianhui on 2017/2/14.
  */
-public class C01DemoTest {
+public class C01DemoTest extends BaseTest{
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(C01DemoTest.class);
 
-    private Jedis jedis;
-    private C01Demo c01Demo;
-
-    @BeforeClass
-    public void setup(){
-        jedis = new Jedis("10.10.28.222", 6379);
-        c01Demo = new C01Demo();
-    }
-
-
+    private C01Demo c01Demo = new C01Demo();
 
     @Test
     public void testRedisString(){
