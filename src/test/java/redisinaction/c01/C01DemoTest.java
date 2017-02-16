@@ -125,4 +125,12 @@ public class C01DemoTest extends BaseTest{
             System.out.println(key);
         }
     }
+
+    @Test
+    public void testDeleteAllKeys(){
+        Set<String> keys = jedis.keys("*");
+        if(null != keys && !keys.isEmpty()){
+            jedis.del(keys.toArray(new String[]{}));
+        }
+    }
 }
