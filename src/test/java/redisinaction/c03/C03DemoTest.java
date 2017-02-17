@@ -3,10 +3,12 @@ package redisinaction.c03;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+import redis.clients.jedis.Tuple;
 import redisinaction.common.BaseTest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by tanjianhui on 2017/2/16.
@@ -101,5 +103,9 @@ public class C03DemoTest extends BaseTest {
 
         logger.info("{}", jedis.zrank(zsetKey,"member01" ));
         logger.info("{}", jedis.zrank(zsetKey,"member03" ));
+
+        for(Tuple tuple : jedis.zrangeWithScores(zsetKey, 0, -1)){
+            logger.info("{} : {}", tuple.getElement(), tuple.getScore());
+        }
     }
 }
